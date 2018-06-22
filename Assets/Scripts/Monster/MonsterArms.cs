@@ -5,7 +5,7 @@ using UnityEngine;
 public class MonsterArms : MonoBehaviour {
     float stretchPerUpdate = 0.2f;
     float actualStretch = 1;
-    float maxStretch = 23f;
+    float maxStretch = 25f;
     float minStretch = 1f;
     float acKm;
     float acStretch;
@@ -17,10 +17,10 @@ public class MonsterArms : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (acStretch <= 6)
+        if (acStretch <= 4)
         {
             acKm = GameObject.Find("Player").GetComponent<UI>().kmUp;
-            acStretch = acKm / 10000000000 + 0.2f;
+            acStretch = acKm / 100000000000 + 0.2f;
         }
         stretchPerUpdate = Random.Range(0.0002f, acStretch);
 

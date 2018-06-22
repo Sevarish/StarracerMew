@@ -7,11 +7,14 @@ public class PlayerManager : MonoBehaviour {
     public float shieldTimer = 0.0f;
     public bool isShielded = false;
     bool doOnce = true;
-    bool isHitFinal = false;
-    int count = 0;
+    public bool isHitFinal = false;
+    public bool isPlaying = true;
+    float count = 0;
     int explosionTimer = 0;
     bool explosionActive = false;
     public int lives = 3;
+    SpriteRenderer spr;
+    public Sprite null1;
     Animator anim;
     Animator anim2;
 
@@ -22,6 +25,7 @@ public class PlayerManager : MonoBehaviour {
         anim2 = GameObject.Find("Shield").GetComponent<Animator>();
         anim.Play("null");
         anim2.Play("null");
+        spr = GetComponent<SpriteRenderer>();
 	}
 	
 	// Update is called once per frame
@@ -55,8 +59,10 @@ public class PlayerManager : MonoBehaviour {
 
         if (isHitFinal == true)
         {
-            count++;
-            if (count == 30)
+            count += Time.deltaTime;
+            spr.sprite = null1;
+            isPlaying = false;
+            if (count >= 2f)
             {
                 Destroy(this.gameObject);
                 Application.LoadLevel("DeathScreen");

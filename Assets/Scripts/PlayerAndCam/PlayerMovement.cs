@@ -28,69 +28,72 @@ public class PlayerMovement : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        resetPoint.x = 0;
-        resetPoint.y = 10;
-        resetPoint.z = myT.position.z;
-
-        resetRotation.x = 0;
-        resetRotation.y = 0;
-        resetRotation.z = 0;
-
-
-
-
-
-        x = Input.GetAxisRaw("Horizontal");
-
-        y = Input.GetAxisRaw("Vertical");
-
-        if (myT.position.x <= maxHorRight && x < 0)
+        if (GameObject.Find("Player").GetComponent<PlayerManager>().isPlaying == true)
         {
-            render.sprite = right;
-            transform.Translate(x * Time.deltaTime * -speedHor * 1.5f, 0, 0);
-        }
-        else if (myT.position.x >= maxHorLeft && x > 0)
-        {
-            render.sprite = left;
-            transform.Translate(x * Time.deltaTime * -speedHor * 1.5f, 0, 0);
-        }
-        else
-        {
-            render.sprite = normal;
-        }
+            resetPoint.x = 0;
+            resetPoint.y = 10;
+            resetPoint.z = myT.position.z;
 
-        if (y > 0 && yPosition <= 50)
-        {
-            float actualY = y / 6; 
-            yPosition++;
-            transform.Translate(0 ,actualY, 0);
-        }
-
-        if (y < 0 && yPosition >= -10)
-        {
-            float actualY = y / 6;
-            yPosition--;
-            transform.Translate(0, actualY, 0);
-        }
-
-        
+            resetRotation.x = 0;
+            resetRotation.y = 0;
+            resetRotation.z = 0;
 
 
-        if (maxHeightReached == true)
-        {
-            
-            speedUp += 0.8f;
 
-            if (GameObject.Find("Player").GetComponent<UI>().distanceCount < 2)
+
+
+            x = Input.GetAxisRaw("Horizontal");
+
+            y = Input.GetAxisRaw("Vertical");
+
+            if (myT.position.x <= maxHorRight && x < 0)
             {
-                GameObject.Find("Player").GetComponent<UI>().multValue += 28000;
+                render.sprite = right;
+                transform.Translate(x * Time.deltaTime * -speedHor * 1.5f, 0, 0);
+            }
+            else if (myT.position.x >= maxHorLeft && x > 0)
+            {
+                render.sprite = left;
+                transform.Translate(x * Time.deltaTime * -speedHor * 1.5f, 0, 0);
             }
             else
             {
-                GameObject.Find("Player").GetComponent<UI>().multValue += 1500000;
+                render.sprite = normal;
             }
 
-            maxHeightReached = false;
+            if (y > 0 && yPosition <= 50)
+            {
+                float actualY = y / 6;
+                yPosition++;
+                transform.Translate(0, actualY, 0);
+            }
+
+            if (y < 0 && yPosition >= -10)
+            {
+                float actualY = y / 6;
+                yPosition--;
+                transform.Translate(0, actualY, 0);
+            }
+
+
+
+
+            if (maxHeightReached == true)
+            {
+
+                speedUp += 0.8f;
+
+                if (GameObject.Find("Player").GetComponent<UI>().distanceCount < 2)
+                {
+                    GameObject.Find("Player").GetComponent<UI>().multValue += 28000;
+                }
+                else
+                {
+                    GameObject.Find("Player").GetComponent<UI>().multValue += 1500000;
+                }
+
+                maxHeightReached = false;
+            }
         }
 
     }

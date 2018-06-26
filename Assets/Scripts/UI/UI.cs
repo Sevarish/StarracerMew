@@ -24,8 +24,8 @@ public class UI : MonoBehaviour {
     public long multValue = 50000;
 	// Use this for initialization
 	void Start () {
-		
-	}
+        PlayerPrefs.SetFloat("Score", 0);
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -35,6 +35,7 @@ public class UI : MonoBehaviour {
         string kmUpString = kmUpActual.ToString("n0");
         nearestPlanetText.text = "Nearest Planet: \n" + planetName[distanceCount] + "\n\nDistance Remaining: \n" +  actualDistanceFromPlanet;
         distanceUpText.text = kmUpString + " KM";
+        PlayerPrefs.SetFloat("Score", kmUp);
         if (kmUp >= distanceFromArray[distanceCount] && distanceCount < 6)
         {
             distanceCount++;

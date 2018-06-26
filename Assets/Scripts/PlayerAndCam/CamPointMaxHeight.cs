@@ -20,14 +20,6 @@ public class CamPointMaxHeight : MonoBehaviour {
         {
             GameObject.Find("Player").GetComponent<PlayerMovement>().maxHeightReached = true;
         }
-        if (GameObject.Find("Player").GetComponent<PlayerMovement>().myT.position.y >= 10)
-        {
-            GameObject.Find("rocket fire").GetComponent<StopAndStart>().partSysStop = false;
-        }
-        if (GameObject.Find("Player").GetComponent<PlayerMovement>().myT.position.y >= 179)
-        {
-            GameObject.Find("rocket fire").GetComponent<StopAndStart>().partSysStop = true;
-        }
 
         if (GameObject.Find("Player").GetComponent<PlayerMovement>().maxHeightReached == true)
         {

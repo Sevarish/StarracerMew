@@ -24,7 +24,7 @@ public class MonsterArms2 : MonoBehaviour
             acKm = GameObject.Find("Player").GetComponent<UI>().kmUp;
             acStretch = acKm / 100000000000 + 0.2f;
         }
-        stretchPerUpdate = Random.Range(acStretch / 5, acStretch);
+        stretchPerUpdate = Random.Range(acStretch / 3, acStretch);
 
         if (arm1.transform.localScale.x >= maxStretch)
         {

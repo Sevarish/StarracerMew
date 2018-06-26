@@ -90,7 +90,7 @@ public class PlayerManager : MonoBehaviour {
             lives--;
             anim.Play("ExplodeItself");
             explosionActive = true;
-            CameraShaker.Instance.ShakeOnce(4f, 4f, 1f, 1f);
+            CameraShaker.Instance.ShakeOnce(6f, 6f, 0f, 3f);
         }
 
         if (collision.gameObject.tag == "Obstacle" && isShielded == false && lives <= 0)

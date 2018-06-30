@@ -58,8 +58,19 @@ public class TentacleManager2 : MonoBehaviour
         {
             stretchCount += Time.deltaTime;
             anim.Play("TentacleAnim2");
-            boxC.size = new Vector3(8, 1, 1);
-            if (stretchCount >= 0.5f)
+            if (stretchCount >= 0.2f && stretchCount <= 0.28f)
+            {
+                boxC.size = new Vector3(4, 1, 1);
+            }
+            if (stretchCount > 0.28f && stretchCount < 0.4f)
+            {
+                boxC.size = new Vector3(8, 1, 1);
+            }
+            else
+            {
+                boxC.size = new Vector3(12, 1, 1);
+            }
+            if (stretchCount >= 0.4f)
             {
                 boxC.size = new Vector3(0, 0, 0);
                 stretchCount = 0;

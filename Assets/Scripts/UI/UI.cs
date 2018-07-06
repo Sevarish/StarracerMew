@@ -22,6 +22,7 @@ public class UI : MonoBehaviour {
     public string[] planetName = { "Venus", "Mars", "Mercury", "Jupiter", "Saturn", "Uranus", "Neptune"};
     public int distanceCount = 0;
     public long multValue = 50000;
+    float actualDistanceFromPlanet;
 	// Use this for initialization
 	void Start () {
         PlayerPrefs.SetFloat("Score", 0);
@@ -29,8 +30,11 @@ public class UI : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        float actualDistanceFromPlanet = distanceFromArray[distanceCount] - kmUp;
-        kmUp += GameObject.Find("Player").GetComponent<PlayerMovement>().speedUp * multValue * Time.deltaTime;
+        if (GameObject.Find("Player").GetComponent<PlayerManager>().isPlaying == true)
+        {
+            actualDistanceFromPlanet = distanceFromArray[distanceCount] - kmUp;
+            kmUp += GameObject.Find("Player").GetComponent<PlayerMovement>().speedUp * multValue * Time.deltaTime;
+        }
         float kmUpActual = Mathf.Round(kmUp);
         string kmUpString = kmUpActual.ToString("n0");
         nearestPlanetText.text = "Nearest Planet: \n" + planetName[distanceCount] + "\n\nDistance Remaining: \n" +  actualDistanceFromPlanet;

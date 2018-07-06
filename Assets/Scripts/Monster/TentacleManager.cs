@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TentacleManager : MonoBehaviour {
+public class TentacleManager : MonoBehaviour
+{
     BoxCollider boxC;
     Animator anim;
-    public GameObject emitSignal;
-    public GameObject emitter;
+    ParticleSystem ps;
     bool stretch = false;
     bool getNewPos = true;
     float counter = 0;
@@ -14,33 +14,40 @@ public class TentacleManager : MonoBehaviour {
     float yPos;
     float minIndicate;
     float actualIndicate;
+    private bool canPlay = true;
     // Use this for initialization
-    void Start () {
+    void Start()
+    {
         boxC = GetComponent<BoxCollider>();
         anim = GetComponent<Animator>();
+        ps = GetComponent<ParticleSystem>();
         actualIndicate = Random.Range(5f, 16f);
-        minIndicate = actualIndicate - 1.3f;
+        minIndicate = actualIndicate - 1.5f;
+        ps.Stop();
     }
-	
-	// Update is called once per frame
-	void Update () {
+
+    // Update is called once per frame
+    void Update()
+    {
         counter += Time.deltaTime;
         yPos = GameObject.Find("CamPointAndPlayer").GetComponent<Transform>().position.y + Random.Range(-4f, 10f);
+        if (counter > minIndicate && canPlay)
+        {
+            ps.Play();
+            canPlay = false;
+        }
         if (counter > actualIndicate)
         {
-            actualIndicate = Random.Range(5f, 16f);
-            minIndicate = actualIndicate - 1.3f;
+            actualIndicate = Random.Range(4, 10);
+            minIndicate = actualIndicate - 1.5f;
             stretch = true;
             counter = 0;
+            canPlay = true;
+            ps.Stop();
         }
-        if (counter > minIndicate && counter < actualIndicate)
+        else if (stretch == false)
         {
-            GameObject Temporary_Bullet_Handler;
-            Temporary_Bullet_Handler = Instantiate(emitSignal, emitter.transform.position, emitter.transform.rotation) as GameObject;
-            Rigidbody Temporary_RigidBody;
-            Temporary_RigidBody = Temporary_Bullet_Handler.GetComponent<Rigidbody>();
-            Temporary_RigidBody.AddForce(transform.up * 1);
-            Destroy(Temporary_Bullet_Handler, 0.01f);
+            anim.Play("null");
         }
 
         if (getNewPos == true)
@@ -54,15 +61,9 @@ public class TentacleManager : MonoBehaviour {
         if (stretch == true)
         {
             stretchCount += Time.deltaTime;
-            anim.Play("TentacleAnim"); if (stretchCount >= 0.2f && stretchCount <= 0.28f)
-            {
-                boxC.size = new Vector3(4, 1, 1);
-            }
-            if (stretchCount > 0.28f && stretchCount < 0.4f)
-            {
-                boxC.size = new Vector3(8, 1, 1);
-            }
-            else
+            anim.Play("TentacleAnim");
+
+            if (stretchCount >= 0.2f && stretchCount <= 0.3f)
             {
                 boxC.size = new Vector3(12, 1, 1);
             }
@@ -73,11 +74,8 @@ public class TentacleManager : MonoBehaviour {
                 stretch = false;
                 getNewPos = true;
             }
+
         }
-        else
-        {
-            anim.Play("null");
-        }
-	}
+    }
 }
 

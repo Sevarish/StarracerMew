@@ -13,6 +13,7 @@ public class PlayerManager : MonoBehaviour {
     int explosionTimer = 0;
     bool explosionActive = false;
     public int lives = 3;
+    bool doOnce1 = true;
     SpriteRenderer spr;
     public Sprite null1;
     Animator anim;
@@ -26,7 +27,7 @@ public class PlayerManager : MonoBehaviour {
         anim.Play("null");
         anim2.Play("null");
         spr = GetComponent<SpriteRenderer>();
-	}
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -42,12 +43,14 @@ public class PlayerManager : MonoBehaviour {
             if (shieldTimer > 5.5f && shieldTimer < 7 && doOnce == true)
             {
                 GameObject.Find("Player").GetComponent<PlayerMovement>().speedUp -= 20;
+                GameObject.Find("rocket fire").GetComponent<StopAndStart>().ps.startSpeed = -7.52f;
                 doOnce = false;
             }
             if (shieldTimer >= 7)
             {
                 
                 isShielded = false;
+                GameObject.Find("rocket fire").GetComponent<StopAndStart>().doOnce = true;
                 doOnce = true;
                 anim2.Play("null");
                 
@@ -62,7 +65,14 @@ public class PlayerManager : MonoBehaviour {
             count += Time.deltaTime;
             spr.sprite = null1;
             isPlaying = false;
-            if (count >= 2f)
+            if (doOnce1 == true)
+            {
+                GameObject.Find("Monster").GetComponent<MonsterSounds>().msNoise.PlayOneShot(GameObject.Find("Monster").GetComponent<MonsterSounds>().Scream1, 1);
+                doOnce1 = false;
+                CameraShaker.Instance.ShakeOnce(10f, 10f, 3f, 3f);
+                
+            }
+            if (count >= 3.5f)
             {
                 Destroy(this.gameObject);
                 Application.LoadLevel("DeathScreen");

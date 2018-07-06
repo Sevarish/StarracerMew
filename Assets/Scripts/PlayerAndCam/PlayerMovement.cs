@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour {
     public Transform myT;
-    public float speedUp = 8;
-    public int speedHor = 9;
+    public float speedUp = 5;
+    public int speedHor = 12;
     int maxHorRight = 9;
     int maxHorLeft = -9;
     int yPosition = 0;
@@ -61,16 +61,16 @@ public class PlayerMovement : MonoBehaviour {
                 render.sprite = normal;
             }
 
-            if (y > 0 && yPosition <= 50)
+            if (y > 0 && yPosition <= 45)
             {
-                float actualY = y / 6;
+                float actualY = y / 5;
                 yPosition++;
                 transform.Translate(0, actualY, 0);
             }
 
-            if (y < 0 && yPosition >= -10)
+            if (y < 0 && yPosition >= -13)
             {
-                float actualY = y / 6;
+                float actualY = y / 5;
                 yPosition--;
                 transform.Translate(0, actualY, 0);
             }

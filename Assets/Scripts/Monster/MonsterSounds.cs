@@ -4,7 +4,7 @@ using UnityEngine;
 using EZCameraShake;
 
 public class MonsterSounds : MonoBehaviour {
-    AudioSource msNoise;
+    public AudioSource msNoise;
     float counter = 0;
     float timeForCounter;
     bool createNewTime = true;
@@ -18,6 +18,7 @@ public class MonsterSounds : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+        
         counter += Time.deltaTime;
 		if (createNewTime == true)
         {
